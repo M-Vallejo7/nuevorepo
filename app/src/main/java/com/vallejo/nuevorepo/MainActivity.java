@@ -2,8 +2,11 @@ package com.vallejo.nuevorepo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,5 +44,18 @@ public class MainActivity extends AppCompatActivity {
         ListAdapter personas = new ListAdapter(MainActivity.this, nombres, telefonos, fotoperfil);
         ListaPersonas = (ListView) findViewById(R.id.listausuarios);
         ListaPersonas.setAdapter(personas);
+
+        ListaPersonas.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> Lista, View Vista, int Posicion, long Id){
+
+                Intent EnviarInfo = new Intent(MainActivity.this, UserActivity.class)
+                        .putExtra("Nombre: ", nombres[Posicion])
+                        .putExtra("Teléfono: ", telefonos[Posicion])
+                        .putExtra("Foto de Perfil: ", fotoperfil[Posicion]);
+
+                startActivity(EnviarInfo);
+            }
+        });
     }
 }
